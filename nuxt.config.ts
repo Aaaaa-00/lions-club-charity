@@ -10,8 +10,8 @@ export default defineNuxtConfig({
   srcDir: '.',
   pages: true,
   
-  // Enable SSR for proper page detection
-  ssr: true,
+  // Enable SSR for proper page detection, but use SPA for static deployment
+  ssr: false,
   
   // Keep auto-imports enabled but controlled
   imports: {
@@ -32,9 +32,16 @@ export default defineNuxtConfig({
     writeEarlyHints: false
   },
   
-  // Nitro configuration
+  // Nitro configuration for static generation
   nitro: {
-    preset: 'node-server'
+    preset: 'static',
+    output: {
+      dir: 'dist',
+      publicDir: 'dist'
+    },
+    prerender: {
+      routes: ['/']
+    }
   },
   
   // Vite configuration to handle spaces in paths
